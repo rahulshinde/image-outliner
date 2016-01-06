@@ -1,4 +1,3 @@
-
 from PIL import Image
 from colored import fg, bg, attr
 import os, sys
