@@ -7,14 +7,15 @@ def startup():
     files = glob.glob("img/*.jpg")
 
     print
-    print 'Welcome to O U T L I N E R'
+    print ('Welcome to: %sO U T L I N E R %s' % (fg(13), attr(0)))
     print
     print "A simple image processor that outlines sections of photos based on their R, G, and B values."
     print
     print "To begin, please make sure this python file is running from a directory containing a folder labled img, which should contain all of the images that you would like to edit."
     print "To check which directory you are in/see what files and folders exist in this directory, please enter \'yes\' or \'y\'. If you would like to skip this step, please enter \'no\' or \'n\'."
-
-    checkContinue = raw_input("Would you like to check which directory you are in? : ")
+    print
+    checkContinue = raw_input(("%sWould you like to check which directory you are in? : %s") % (fg(14), attr(0)))
+    print
 
     if checkContinue in ["yes", "y", "Yes"]:
         dirPath = os.path.dirname(os.path.realpath(__file__))
@@ -22,22 +23,33 @@ def startup():
         print "these are the files/folders it countains :"
         print os.listdir(dirPath)
         if os.path.exists(dirPath + "/img"):
-            print "Cool, it looks like you have an image folder in this directory! Lets keep going:"
+            print
+            print ("%sCool%s, it looks like you have an image folder in this directory! Lets keep going:" % (fg(10), attr(0)))
             return color_val(files)
         else:
-            print "Hmmm, it doesn't seem like you have and img folder in this directory, try adding one before running the program again"
+            print ("%sHmmm%s, it doesn't seem like you have and img folder in this directory, try adding one before running the program again" % (fg(1), attr(0)))
             return (False,)
 
     else:
         dirPath = os.path.dirname(os.path.realpath(__file__))
         if os.path.exists(dirPath + "/img"):
-            print "Cool, it looks like you have an image folder in this directory! Let's keep going:"
+            print ("%sCool%s, it looks like you have an image folder in this directory! Lets keep going:" % (fg(10), attr(0)))
             return color_val(files)
         else:
-            print "Hmmm, it doesn't seem like you have and img folder in this directory, try adding one before running the program again"
+            print ("%sHmmm%s, it doesn't seem like you have and img folder in this directory, try adding one before running the program again" % (fg(1), attr(0)))
             return (False,)
 
 def color_val(files):
+    print "Alright, so now we are going to choose R,G, and B values to check for."
+    print
+    print "The program will go through the image pixel by pixel and check whether the R,G,or B values are greater than the number you provided."
+    print
+    print "This operation will return TRUE or FALSE and change the pixels color to black or white respectively."
+    print "(telling you whether that pixel has matched the parameters you have selected or not)"
+    print
+    print "After you have completed this step, we will select two colors to outline the sections that match and fill the space around them."
+    print
+
     while True:
         try:
             rl = int(raw_input("Enter an R value to check for (between 0-255): "))
