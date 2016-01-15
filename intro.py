@@ -97,7 +97,7 @@ def color_val(files):
 
     while True:
         try:
-            outline_g = int(raw_input("Enter an G value for the outline (between 0-255): "))
+            outline_g = int(raw_input(("Enter an %sG%s value for the outline (between 0-255): ") % (fg(10), attr(0))))
             if 0 <= outline_g <= 255:
                 break
             else:
@@ -107,7 +107,7 @@ def color_val(files):
 
     while True:
         try:
-            outline_b = int(raw_input("Enter an B value for the outline (between 0-255): "))
+            outline_b = int(raw_input(("Enter an %sB%s value for the outline (between 0-255): ") % (fg(21), attr(0))))
             if 0 <= outline_b <= 255:
                 break
             else:
@@ -116,13 +116,13 @@ def color_val(files):
             print ("%sOops!%s  That was not a valid number. Let's try again..." % (fg(1), attr(0)))
 
     outline = (outline_r, outline_g, outline_b)
-    print "Your outline color is : RGB( " + str(outline[0]) + ", " + str(outline[1]) + ", " + str(outline[2]) +" )"
+    print "Your outline color is : RGB( " + str(outline[0]) + ", " + str(outline[1]) + ", " + str(outline[2]) +" )" 
     print ""
-    print "Now lets do the fill,"
+    print ("%sNow lets do the fill,%s" % (fg(13), attr(0)))
 
     while True:
         try:
-            fill_r = int(raw_input("Enter an R value for the fill (between 0-255): "))
+            fill_r = int(raw_input(("Enter an %sR%s value for the fill (between 0-255): ") % (fg(1), attr(0))))
             if 0 <= fill_r <= 255:
                 break
             else:
@@ -132,7 +132,7 @@ def color_val(files):
 
     while True:
         try:
-            fill_g = int(raw_input("Enter an G value for the fill (between 0-255): "))
+            fill_g = int(raw_input(("Enter an %sG%s value for the fill (between 0-255): ") % (fg(10), attr(0))))
             if 0 <= fill_g <= 255:
                 break
             else:
@@ -142,7 +142,7 @@ def color_val(files):
 
     while True:
         try:
-            fill_b = int(raw_input("Enter an B value for the fill (between 0-255): "))
+            fill_b = int(raw_input(("Enter an %sB%s value for the fill (between 0-255): ") % (fg(21), attr(0))))
             if 0 <= fill_b <= 255:
                 break
             else:
@@ -159,6 +159,12 @@ def color_val(files):
 def img_processing(args): #files, rl, bl, gl, outline, fill):
     files, rl, gl, bl, outline, fill = args
     count = 0;
+    out_num = 1;
+
+    while os.path.exists('./out' + str(out_num)):
+        out_num = out_num + 1
+
+    os.makedirs('./out' + str(out_num))
 
     for i in files:
         im = Image.open(i)
@@ -188,7 +194,8 @@ def img_processing(args): #files, rl, bl, gl, outline, fill):
                     newData[x, y] = fill
 
         newIm.convert('RGB')
-        newIm.save('out/outliner-input/' + strCount + '.jpg', "JPEG")
+
+        newIm.save('out' + str(out_num) + '/' + strCount + '.jpg', "JPEG")
 
 success, args = startup()
 if success:
